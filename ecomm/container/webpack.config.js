@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
+const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
 
 module.exports = {
   mode: 'development',
@@ -33,5 +35,13 @@ module.exports = {
       template: "./src/index.html",
       title: 'Webpack Dev Server with HMR',
     }),
+    new ModuleFederationPlugin({
+      name: "container",
+      filename: "remoteEntry.js",
+      remotes: {
+        "products-fm": "product_app@http://localhost:8081/remoteEntry.js",
+      },
+    }),
+    new ExternalTemplateRemotesPlugin(),
   ],
 };

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-const $products = document.getElementById("products");
+const $products = document.getElementById("products-html");
 
 const products = new Array(5)
   .fill("")
@@ -8,4 +8,4 @@ const products = new Array(5)
   .map(name => `<div>${name}</div>`)
   .join("")
 
-$products.innerHTML = products;
+$products!.innerHTML = products;

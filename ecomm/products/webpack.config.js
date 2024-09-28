@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   mode: 'development',
@@ -32,6 +33,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       title: 'Webpack Dev Server with HMR',
+    }),
+    new ModuleFederationPlugin({
+      name: 'product_app',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './products-index': './src/index',
+      },
     }),
   ],
 };
