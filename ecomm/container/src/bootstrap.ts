@@ -1,3 +1,2 @@
-import 'products-fm/products-index'
-
-console.log("Container");
+import 'products-fm/products-index';
+import 'cart-fm/cart-index';

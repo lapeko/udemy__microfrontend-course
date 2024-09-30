@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
-const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
 
 module.exports = {
   mode: 'development',
@@ -9,14 +8,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
   },
   output: {
     filename: 'bundle.js',
@@ -27,22 +26,17 @@ module.exports = {
       directory: path.join(__dirname, 'dist'),
     },
     compress: true,
-    port: 8080,
+    port: 8082,
     hot: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      title: 'Webpack Dev Server with HMR',
-    }),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
     new ModuleFederationPlugin({
-      name: "container",
-      filename: "remoteEntry.js",
-      remotes: {
-        "products-fm": "product_app@http://localhost:8081/remoteEntry.js",
-        "cart-fm": "cart_app@http://localhost:8082/remoteEntry.js"
+      name: 'cart_app',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './cart-index': './src/index',
       },
     }),
-    new ExternalTemplateRemotesPlugin(),
   ],
 };
