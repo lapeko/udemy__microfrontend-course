@@ -34,7 +34,11 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'cart_app',
       filename: 'remoteEntry.js',
-      shared: ["@faker-js/faker"],
+      shared: {
+        "@faker-js/faker": {
+          singleton: true,
+        }
+      },
       exposes: {
         './cart-index': './src/index',
       },
