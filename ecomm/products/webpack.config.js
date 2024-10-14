@@ -43,7 +43,7 @@ module.exports = {
         }
       },
       exposes: {
-        './products-index': './src/index',
+        './products-bootstrap': './src/products-bootstrap',
       },
     }),
   ],

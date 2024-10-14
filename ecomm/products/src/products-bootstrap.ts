@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 
-const $products = document.getElementById("products-html");
+export const mount = (el: HTMLElement) => {
+    el.innerHTML = products;
+}
 
 const products = new Array(5)
     .fill("")
@@ -8,4 +10,7 @@ const products = new Array(5)
     .map(name => `<div>${name}</div>`)
     .join("")
 
-$products!.innerHTML = products;
+if (process.env.NODE_ENV === "development") {
+    const $products = document.getElementById("products-html");
+    $products && mount($products)
+}

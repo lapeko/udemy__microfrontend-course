@@ -40,7 +40,7 @@ module.exports = {
         }
       },
       exposes: {
-        './cart-index': './src/index',
+        './cart-bootstrap': './src/cart-bootstrap',
       },
     }),
   ],
