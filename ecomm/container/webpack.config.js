@@ -39,8 +39,8 @@ module.exports = {
       name: "container",
       filename: "remoteEntry.js",
       remotes: {
-        "products-fm": "product_app@http://localhost:8081/remoteEntry.js",
-        "cart-fm": "cart_app@http://localhost:8082/remoteEntry.js"
+        "products-fm": "products@http://localhost:8081/remoteEntry.js",
+        "cart-fm": "cart@http://localhost:8082/remoteEntry.js"
       },
     }),
     new ExternalTemplateRemotesPlugin(),

@@ -32,7 +32,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new ModuleFederationPlugin({
-      name: 'cart_app',
+      name: 'cart',
       filename: 'remoteEntry.js',
       shared: {
         "@faker-js/faker": {

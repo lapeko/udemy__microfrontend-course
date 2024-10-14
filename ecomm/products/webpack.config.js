@@ -35,7 +35,7 @@ module.exports = {
       title: 'Webpack Dev Server with HMR',
     }),
     new ModuleFederationPlugin({
-      name: 'product_app',
+      name: 'products',
       filename: 'remoteEntry.js',
       shared: {
         "@faker-js/faker": {
