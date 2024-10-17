@@ -1,8 +1,23 @@
-const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const {ModuleFederationPlugin} = require('webpack').container;
-const {dependencies} = require("../package.json");
+const {dependencies} = require("./package.json");
+const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
+const path = require("path");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
+    mode: 'development',
+    entry: './src/index.ts',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
+    },
+    devServer: {
+        port: 8080,
+        static: './dist',
+        hot: true,
+        open: false,
+    },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
@@ -25,21 +40,21 @@ module.exports = {
                     }
                 },
             },
-            {
-                test: /\.s?css$/i,
-                include: path.resolve(__dirname, "..", 'src'),
-                use: ['style-loader', 'css-loader', 'postcss-loader', "sass-loader"],
-            },
-        ]
+        ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Container',
+            template: './public/index.html'
+        }),
         new ModuleFederationPlugin({
-            name: 'marketing',
-            filename: 'remoteEntry.js',
-            exposes: {
-                './app': './src/marketing-bootstrap',
+            name: "Container",
+            remotes: {
+                "marketing-mf": "marketing@http://localhost:8081/remoteEntry.js",
             },
             shared: dependencies,
         }),
+        new ExternalTemplateRemotesPlugin(),
     ],
-};
+}

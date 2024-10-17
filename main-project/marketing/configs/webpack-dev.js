@@ -14,11 +14,14 @@ const devConfig = {
     devServer: {
         port: 8081,
         static: './dist',
-        hot: true
+        hot: true,
+        open: false,
     },
+    devtool: 'inline-source-map',
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
+            title: 'Marketing',
             template: './public/index.html'
         })
     ],

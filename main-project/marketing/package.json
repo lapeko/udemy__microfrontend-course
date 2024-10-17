@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open --config configs/webpack-dev.js",
+    "start": "webpack serve --config configs/webpack-dev.js",
     "build": "webpack --config configs/webpack-dev.js"
   },
   "keywords": [],
