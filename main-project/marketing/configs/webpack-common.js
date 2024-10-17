@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -11,6 +13,11 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ["source-map-loader"],
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
@@ -22,9 +29,10 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }
+                test: /\.s?css$/i,
+                include: path.resolve(__dirname, "..", 'src'),
+                use: ['style-loader', 'css-loader', 'postcss-loader', "sass-loader"],
+            },
         ]
     },
 };
