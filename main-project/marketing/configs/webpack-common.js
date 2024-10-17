@@ -1,4 +1,6 @@
 const path = require("path");
+const {ModuleFederationPlugin} = require('webpack').container;
+const {dependencies} = require("../package.json");
 
 module.exports = {
     resolve: {
@@ -35,4 +37,14 @@ module.exports = {
             },
         ]
     },
+    plugins: [
+        new ModuleFederationPlugin({
+            name: 'marketing',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './app': './src/bootstrap',
+            },
+            shared: dependencies,
+        }),
+    ],
 };
